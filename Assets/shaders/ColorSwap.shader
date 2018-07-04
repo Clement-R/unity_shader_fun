@@ -47,6 +47,8 @@
 			float4 _MousePos;
 
 			float circle(in float2 _st, in float _radius) {
+				_st -= (_MousePos - .5);
+
 				_st.x -= 0.5;
 				float aspect = _ScreenParams.x / _ScreenParams.y;
 				_st.x *= aspect;
