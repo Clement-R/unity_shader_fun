@@ -10,3 +10,6 @@ Swap between two palettes
 Swap between palette and grayscale version
 
 <img src="images/grayscale_swap.gif" alt="Swap between palette and grayscale version">
+
+Swap between palette in a circle shape on mouse click
+<img src="images/color_swap_on_click.gif.gif" alt="Swap between palette in a circle shape on mouse click">
