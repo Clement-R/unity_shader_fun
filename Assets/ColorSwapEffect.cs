@@ -51,4 +51,24 @@ public class ColorSwapEffect : MonoBehaviour {
 		mat.SetMatrix("_SecColorMatrix", SecColorMatrix);
 		Graphics.Blit(src, dest, mat);
 	}
+
+	private void Update() {
+		if (Input.GetMouseButtonDown(0)) {
+			Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition));
+			StartCoroutine(Effect());
+		}
+	}
+
+	IEnumerator Effect() {
+		mat.SetVector("_MousePos", Camera.main.ScreenToViewportPoint(Input.mousePosition));
+
+		float t = 0f;
+		while (t <= 1f) {
+			mat.SetFloat("_Step", t);
+			yield return null;
+			t += Time.deltaTime;
+		}
+
+		mat.SetFloat("_Step", 0f);
+	}
 }
