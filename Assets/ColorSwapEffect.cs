@@ -18,6 +18,8 @@ public class ColorSwapEffect : MonoBehaviour {
 
 	public Material mat;
 
+	private bool effectIsDone = true;
+
 	Matrix4x4 ColorMatrix {
 		get {
 			Matrix4x4 mat = new Matrix4x4();
@@ -53,22 +55,28 @@ public class ColorSwapEffect : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && effectIsDone) {
 			Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition));
 			StartCoroutine(Effect());
 		}
+
+		//mat.SetVector("_MousePos", Camera.main.ScreenToViewportPoint(Input.mousePosition));
+		//mat.SetFloat("_Step", 0.5f);
 	}
 
 	IEnumerator Effect() {
+		effectIsDone = false;
+
 		mat.SetVector("_MousePos", Camera.main.ScreenToViewportPoint(Input.mousePosition));
 
 		float t = 0f;
 		while (t <= 1f) {
-			mat.SetFloat("_Step", t);
+			mat.SetFloat("_Step", 1f - t);
 			yield return null;
 			t += Time.deltaTime;
 		}
 
 		mat.SetFloat("_Step", 0f);
+		effectIsDone = true;
 	}
 }
